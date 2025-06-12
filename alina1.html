@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> ❤️ </title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff7f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .card img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      font-size: 1.1em;
+      color: #333;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img id="cardImage" src="" alt="Открытка" />
+    <div class="message" id="cardMessage">Загружается...</div>
+  </div>
+
+  <script>
+    const cards = {};
+    const startDate = new Date("2025-06-09");
+
+    const texts = [/* ваш список текстов */];
+
+    for (let i = 0; i < texts.length; i++) {
+      const date = new Date(startDate);
+      date.setDate(startDate.getDate() + i);
+      const key = date.toISOString().split("T")[0];
+      cards[key] = {
+        img: `images/${i + 1}.jpg`,
+        text: texts[i]
+      };
+    }
+
+    const today = new Date().toISOString().split("T")[0];
+    const card = cards[today];
+
+    if (card) {
+      document.getElementById("cardImage").src = card.img;
+      document.getElementById("cardMessage").textContent = card.text;
+    } else {
+      document.getElementById("cardImage").src = "images/fallback.jpg";
+      document.getElementById("cardMessage").textContent = "Каждый день — ещё один повод любить тебя. 💞";
+    }
+  </script>
+</body>
+</html>
